@@ -139,7 +139,7 @@
     <li><a href="kubernetes.html">Deploy to Kubernetes</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/quarkus-tutorial/edit/master/documentation/modules/ROOT/pages/kubernetes.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/kdubois/quarkus-tutorial/edit/master/documentation/modules/ROOT/pages/kubernetes.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
@@ -337,7 +337,7 @@ echo $IP:$PORT</code></pre>
 <div class="paragraph">
 <p>If using a hosted Kubernetes cluster like OpenShift then use curl and the EXTERNAL-IP address with port <code>8080</code> or get it using <code>kubectl</code>:</p>
 </div>
-<div id="{section-k8s}-ip-port-openshift" class="listingblock console-input">
+<div id="{section-k8s}-ip-port-service" class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IP=$(kubectl get service tutorial-app -o jsonpath="{.status.loadBalancer.ingress[0].hostname}")
 PORT=$(kubectl get service tutorial-app -o jsonpath="{.spec.ports[*].port}")

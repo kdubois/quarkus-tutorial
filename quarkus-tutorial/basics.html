@@ -139,7 +139,7 @@
     <li><a href="basics.html">Basics and Fundamentals</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/quarkus-tutorial/edit/master/documentation/modules/ROOT/pages/basics.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/kdubois/quarkus-tutorial/edit/master/documentation/modules/ROOT/pages/basics.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
@@ -147,6 +147,19 @@
 <div class="sect1">
 <h2 id="_creating_a_quarkus_application"><a class="anchor" href="#_creating_a_quarkus_application"></a>Creating a Quarkus Application</h2>
 <div class="sectionbody">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset1_maven"></a>Maven</p>
+</li>
+<li>
+<p><a id="tabset1_quarkus-cli"></a>Quarkus CLI</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_maven">
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn "io.quarkus:quarkus-maven-plugin:create" \
@@ -157,6 +170,28 @@
   -Dpath="hello" \
   -Dextensions="resteasy"
 cd tutorial-app</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_quarkus-cli">
+<div class="paragraph">
+<p>The quarkus command lets you create projects, manage extensions and do essential build and dev commands using the underlying project build tool.</p>
+</div>
+<div class="paragraph">
+<p>Follow these instructions to install Quarkus CLI: <a href="https://quarkus.io/guides/cli-tooling" class="bare">https://quarkus.io/guides/cli-tooling</a></p>
+</div>
+<div class="paragraph">
+<p>Then create the application:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">quarkus create app \
+  -x resteasy \
+  com.redhat.developers:tutorial-app:1.0-SNAPSHOT
+cd tutorial-app</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="admonitionblock important">
@@ -180,23 +215,44 @@ All the remaining parts of this tutorial assume that you&#8217;ll be working ins
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset1_jvm-mode"></a>JVM mode</p>
+<p><a id="tabset2_jvm-mode"></a>JVM mode</p>
 </li>
 <li>
-<p><a id="tabset1_native-mode"></a>Native mode</p>
+<p><a id="tabset2_native-mode"></a>Native mode</p>
 </li>
 <li>
-<p><a id="tabset1_native-container-build-mode"></a>Native container-build mode</p>
+<p><a id="tabset2_native-container-build-mode"></a>Native container-build mode</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset1_jvm-mode">
-<div id="basics-build-quarkus-jvm-app" class="listingblock console-input">
+<div class="tab-pane" aria-labelledby="tabset2_jvm-mode">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Maven</th>
+<th class="tableblock halign-left valign-top">Quarkus CLI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="basics-build-quarkus-jvm-app-mvn" class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn package</code></pre>
 </div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="basics-build-quarkus-jvm-app-quarkus" class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">quarkus build</code></pre>
 </div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
 <p>To run the application in jvm mode</p>
 </div>
@@ -206,12 +262,33 @@ All the remaining parts of this tutorial assume that you&#8217;ll be working ins
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset1_native-mode">
-<div id="basics-build-quarkus-native-app" class="listingblock console-input">
+<div class="tab-pane" aria-labelledby="tabset2_native-mode">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Maven</th>
+<th class="tableblock halign-left valign-top">Quarkus CLI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="basics-build-quarkus-native-app-mvn" class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn -DskipTests clean package -Pnative</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn clean package -Pnative</code></pre>
 </div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="basics-build-quarkus-native-app-quarkus" class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">quarkus build --native</code></pre>
 </div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -233,12 +310,35 @@ Native compilation will take few minutes to complete.
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset1_native-container-build-mode">
-<div id="basics-build-quarkus-native-docker-app" class="listingblock console-input">
+<div class="tab-pane" aria-labelledby="tabset2_native-container-build-mode">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Maven</th>
+<th class="tableblock halign-left valign-top">Quarkus CLI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="basics-build-quarkus-native-docker-app-mvn" class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn package -DskipTests -Pnative -Dquarkus.native.container-build=true</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn package -Pnative \
+-Dquarkus.native.container-build=true</code></pre>
 </div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="basics-build-quarkus-native-docker-app-quarkus" class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">quarkus build --native \
+ -Dquarkus.native.container-build=true</code></pre>
 </div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 <div class="admonitionblock note">
 <table>
 <tr>
