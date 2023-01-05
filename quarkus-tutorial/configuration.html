@@ -156,7 +156,7 @@ Quarkus relies on the MicroProfile Config specification and the main configurati
 <h2 id="_using_a_config_property_in_your_code"><a class="anchor" href="#_using_a_config_property_in_your_code"></a>Using a config property in your code</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Let&#8217;s change our <code>HelloResource</code> class to use a configuration property. Change its content to:</p>
+<p>Let&#8217;s change our <code>GreetingResource</code> class to use a configuration property. Change its content to:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
@@ -170,7 +170,7 @@ import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @Path("/hello")
-public class HelloResource {
+public class GreetingResource {
 
     @ConfigProperty(name = "greeting")
     String greeting;
@@ -250,7 +250,7 @@ greeting=Hello y'all!</code></pre>
 <p>Since we changed the output of our <code>/hello</code> endpoint, our integration test doesn&#8217;t pass anymore.</p>
 </div>
 <div class="paragraph">
-<p>Let&#8217;s update <code>HelloResourceTest</code> to reflect our recent changes:</p>
+<p>Let&#8217;s update <code>GreetingResourceTest</code> to reflect our recent changes:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
@@ -263,10 +263,10 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
-public class HelloResourceTest {
+public class GreetingResourceTest {
 
     @Test
-    public void testHelloEndpoint() {
+    public void testGreetingEndpoint() {
         given()
           .when().get("/hello")
           .then()

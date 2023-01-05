@@ -166,7 +166,7 @@
   -DprojectGroupId="com.redhat.developers" \
   -DprojectArtifactId="tutorial-app" \
   -DprojectVersion="1.0-SNAPSHOT" \
-  -DclassName="HelloResource" \
+  -DclassName="GreetingResource" \
   -Dpath="hello" \
   -Dextensions="resteasy"
 cd tutorial-app</code></pre>
@@ -429,7 +429,7 @@ It allows you to quickly visualize all the extensions currently loaded, see thei
 <p>The scaffolding process also creates a test case for the example endpoint.</p>
 </div>
 <div class="paragraph">
-<p>Check the file <code>HelloResourceTest.java</code> in the folder <code>src/test/java</code> to see how a Quarkus integration test looks like.</p>
+<p>Check the file <code>GreetingResourceTest.java</code> in the folder <code>src/test/java</code> to see how a Quarkus integration test looks like.</p>
 </div>
 <div class="paragraph">
 <p>When running this test, the application is started once, then all tests are executed, and finally, the application stops. Although it is not mandatory, by default RestAssured project is used to test Rest endpoints but it is up to you to change that.</p>
