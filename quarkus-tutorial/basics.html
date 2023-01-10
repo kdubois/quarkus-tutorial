@@ -398,15 +398,6 @@ To run the application (in native mode) you will need to start up a container:</
 </div>
 </div>
 <div class="sect1">
-<h2 id="_dev_ui"><a class="anchor" href="#_dev_ui"></a>Dev UI</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Quarkus now ships with a new experimental Dev UI, which is available in dev mode at <a href="http://localhost:8080/q/dev">/q/dev</a> by default.
-It allows you to quickly visualize all the extensions currently loaded, see their status and go directly to their documentation.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_stopping_the_application"><a class="anchor" href="#_stopping_the_application"></a>Stopping the application</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -429,10 +420,10 @@ It allows you to quickly visualize all the extensions currently loaded, see thei
 <p>The scaffolding process also creates a test case for the example endpoint.</p>
 </div>
 <div class="paragraph">
-<p>Check the file <code>GreetingResourceTest.java</code> in the folder <code>src/test/java</code> to see how a Quarkus integration test looks like.</p>
+<p>Check the file <code>GreetingResourceTest.java</code> in the folder <code>src/test/java</code> to see what a Quarkus integration test looks like.</p>
 </div>
 <div class="paragraph">
-<p>When running this test, the application is started once, then all tests are executed, and finally, the application stops. Although it is not mandatory, by default RestAssured project is used to test Rest endpoints but it is up to you to change that.</p>
+<p>When running this test, the application is started once, then all tests are executed, and finally, the application stops. Although it is not mandatory, by default the RestAssured project is used to test Rest endpoints but it is up to you to change that.</p>
 </div>
 <div class="paragraph">
 <p>You can run the test in your IDE or by running the following:</p>
@@ -461,6 +452,18 @@ It allows you to quickly visualize all the extensions currently loaded, see thei
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">quarkus test</code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>quarkus test</code> starts tests in continuous testing mode (more about this below) so to return to the command line you will need to press (q)
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -536,6 +539,20 @@ If you use <code>tutorial-tools</code>, your host <code>quarkus-tutorial/work</c
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dev_ui"><a class="anchor" href="#_dev_ui"></a>Dev UI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Quarkus ships with a Dev UI, which is available in dev mode at <a href="http://localhost:8080/q/dev">/q/dev</a> by default.
+It allows you to quickly visualize all the extensions currently loaded, see their status and go directly to their documentation.</p>
+</div>
+<div class="imageblock text-center mt-4 center">
+<div class="content">
+<img src="_images/Dev_UI.png" alt="Dev UI" width="800" height="600">
 </div>
 </div>
 </div>
