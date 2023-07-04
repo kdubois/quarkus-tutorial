@@ -74,10 +74,13 @@
     <a class="nav-link" href="panache.html">Hibernate with Panache</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spring.html">Spring Compatibility</a>
+    <a class="nav-link" href="kubernetes.html">Deploy to Kubernetes</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="kubernetes.html">Deploy to Kubernetes</a>
+    <a class="nav-link" href="dev-services.html">Dev Services</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="spring.html">Spring Compatibility</a>
   </li>
 </ul>
   </li>
@@ -200,11 +203,11 @@
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package com.redhat.developers;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
@@ -263,7 +266,7 @@ public interface FruityViceService {
 </div>
 </div>
 <div class="paragraph">
-<p>No change from calls done previously, but now switch off your network so you do not have access to <a href="http://www.fruityvice.com" class="bare">http://www.fruityvice.com</a>.</p>
+<p>No change from calls done previously, but now switch off your network so you do not have access to <a href="http://fruityvice.com" class="bare">http://fruityvice.com</a>.</p>
 </div>
 <div class="paragraph">
 <p>Run the following command again:</p>
@@ -274,7 +277,7 @@ public interface FruityViceService {
 </div>
 </div>
 <div class="paragraph">
-<p>Now after waiting 6 seconds (3 retries x 2 seconds), the next exception is thrown <code>java.net.UnknownHostException: www.fruityvice.com</code>.</p>
+<p>Now after waiting 6 seconds (3 retries x 2 seconds), the next exception is thrown <code>java.net.UnknownHostException: fruityvice.com</code>.</p>
 </div>
 </div>
 </div>
@@ -291,11 +294,11 @@ public interface FruityViceService {
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package com.redhat.developers;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
 import com.redhat.developers.FruityVice.Nutritions;
 
@@ -390,11 +393,11 @@ public interface FruityViceService {
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package com.redhat.developers;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Retry;
@@ -427,7 +430,7 @@ If the invocation succeeds, then the circuit is back to closed again.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The output changes from <code>java.net.UnknownHostException: www.fruityvice.com</code> (or any other network exception) in the first calls to <code>org.eclipse.microprofile.faulttolerance.exceptions.CircuitBreakerOpenException: getFruitByName</code> when the circuit is opened.</p>
+<p>The output changes from <code>java.net.UnknownHostException: fruityvice.com</code> (or any other network exception) in the first calls to <code>org.eclipse.microprofile.faulttolerance.exceptions.CircuitBreakerOpenException: getFruitByName</code> when the circuit is opened.</p>
 </div>
 <div class="paragraph">
 <p>The big difference between the first exception and the second one is that the first one occurs because the circuit is closed while the system is trying to reach the host, while in the second one, the circuit is closed and the exception is thrown automatically without trying to reach the host.</p>

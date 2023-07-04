@@ -74,10 +74,13 @@
     <a class="nav-link" href="panache.html">Hibernate with Panache</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spring.html">Spring Compatibility</a>
+    <a class="nav-link" href="kubernetes.html">Deploy to Kubernetes</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="kubernetes.html">Deploy to Kubernetes</a>
+    <a class="nav-link" href="dev-services.html">Dev Services</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="spring.html">Spring Compatibility</a>
   </li>
 </ul>
   </li>
@@ -162,20 +165,18 @@
 <div class="tab-pane" aria-labelledby="tabset1_maven">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn "io.quarkus:quarkus-maven-plugin:create" \
-  -DprojectGroupId="com.redhat.developers" \
-  -DprojectArtifactId="tutorial-app" \
-  -DprojectVersion="1.0-SNAPSHOT" \
-  -DclassName="GreetingResource" \
-  -Dpath="hello" \
-  -Dextensions="resteasy"
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn "io.quarkus.platform:quarkus-maven-plugin:create" \
+-DprojectGroupId="com.redhat.developers" \
+-DprojectArtifactId="tutorial-app" \
+-DprojectVersion="1.0-SNAPSHOT" \
+-Dextensions='resteasy-reactive'
 cd tutorial-app</code></pre>
 </div>
 </div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset1_quarkus-cli">
 <div class="paragraph">
-<p>The quarkus command lets you create projects, manage extensions and do essential build and dev commands using the underlying project build tool.</p>
+<p>The quarkus CLI tool lets you create projects, manage extensions and do essential dev, build and deploy commands using the underlying project build tool in a simplified way.</p>
 </div>
 <div class="paragraph">
 <p>Follow these instructions to install Quarkus CLI: <a href="https://quarkus.io/guides/cli-tooling" class="bare">https://quarkus.io/guides/cli-tooling</a></p>
@@ -186,7 +187,7 @@ cd tutorial-app</code></pre>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">quarkus create app \
-  -x resteasy \
+  -x resteasy-reactive \
   com.redhat.developers:tutorial-app:1.0-SNAPSHOT
 cd tutorial-app</code></pre>
 </div>
@@ -324,13 +325,13 @@ Native compilation will take few minutes to complete.
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div id="basics-build-quarkus-native-docker-app-mvn" class="listingblock console-input">
+<td class="tableblock halign-left valign-top"><div class="content"><div id="basics-build-quarkus-native-container-app-mvn" class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"> mvn quarkus:image-build \
   -Dnative</code></pre>
 </div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div id="basics-build-quarkus-native-docker-app-quarkus" class="listingblock console-input">
+<td class="tableblock halign-left valign-top"><div class="content"><div id="basics-build-quarkus-native-container-app-quarkus" class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">quarkus image build --native</code></pre>
 </div>
@@ -371,13 +372,14 @@ To run the application (in native mode) you will need to start up a container:</
  --/ __ \/ / / / _ | / _ \/ //_/ / / / __/
  -/ /_/ / /_/ / __ |/ , _/ ,&lt; / /_/ /\ \
 --\___\_\____/_/ |_/_/|_/_/|_|\____/___/
-2020-05-10 22:37:10,161 INFO  [io.quarkus] (main) tutorial-app 1.0-SNAPSHOT (powered by Quarkus 1.10.2.Final) started in 0.016s. Listening on: http://0.0.0.0:8080
-2020-05-10 22:37:10,162 INFO  [io.quarkus] (main) Profile prod activated.
-2020-05-10 22:37:10,162 INFO  [io.quarkus] (main) Installed features: [cdi, resteasy]</code></pre>
+INFO  [io.quarkus] (Quarkus Main Thread) tutorial-app 1.0-SNAPSHOT on JVM (powered by Quarkus 3.1.2.Final) started in 0.394s. Listening on: http://localhost:8080
+
+INFO  [io.quarkus] (Quarkus Main Thread) Profile dev activated. Live Coding activated.
+INFO  [io.quarkus] (Quarkus Main Thread) Installed features: [cdi, resteasy-reactive, smallrye-context-propagation, vertx]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Notice how <strong>fast</strong> Quarkus was ready to serve your requests. In this particular example Quarkus only required <strong>0.016s</strong> to start.</p>
+<p>Notice how <strong>fast</strong> Quarkus was ready to serve your requests. In this particular example Quarkus only required <strong>0.394s</strong> to start.</p>
 </div>
 <div class="paragraph">
 <p>You can open your browser with the url <code><a href="http://localhost:8080/hello" class="bare" target="_blank" rel="noopener">http://localhost:8080/hello</a></code> and you should see a response like <code>hello</code>.</p>
@@ -392,7 +394,7 @@ To run the application (in native mode) you will need to start up a container:</
 </div>
 <div class="listingblock console-output">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">hello</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Hello from RESTEasy Reactive</code></pre>
 </div>
 </div>
 </div>
@@ -405,11 +407,11 @@ To run the application (in native mode) you will need to start up a container:</
 </div>
 <div class="listingblock console-output">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">^C2020-05-10 23:11:03,419 INFO  [io.quarkus] (main) tutorial-app stopped in 0.007s</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">INFO  [io.quarkus] (main) tutorial-app stopped in 0.035s</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Quarkus was able to stop in just <strong>0.007s</strong>. Fast to start, fast to stop. Fast always!</p>
+<p>Quarkus was able to stop in just <strong>0.035s</strong>. Fast to start, fast to stop. Fast always!</p>
 </div>
 </div>
 </div>
@@ -561,39 +563,10 @@ It allows you to quickly visualize all the extensions currently loaded, see thei
 <h2 id="_continuous_testing_development_mode"><a class="anchor" href="#_continuous_testing_development_mode"></a>Continuous Testing (Development mode)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Quarkus supports continuous testing, meaning that your tests will run immediately after code changes were saved.
-Let&#8217;s start again in <em>Live Coding</em> mode by invoking quarkus dev mode:</p>
-</div>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset5_maven"></a>Maven</p>
-</li>
-<li>
-<p><a id="tabset5_quarkus-cli"></a>Quarkus CLI</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset5_maven">
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn quarkus:dev</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset5_quarkus-cli">
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">quarkus dev</code></pre>
-</div>
-</div>
-</div>
-</div>
+<p>Quarkus supports continuous testing, meaning that your tests will run immediately after code changes were saved. Your application should already be running in dev mode.</p>
 </div>
 <div class="paragraph">
-<p>Quarkus will start in development mode as normal, but down the bottom of the screen you should see the following:</p>
+<p>At the bottom of the screen you should see the following:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">

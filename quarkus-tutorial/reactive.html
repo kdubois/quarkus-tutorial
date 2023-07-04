@@ -74,10 +74,13 @@
     <a class="nav-link" href="panache.html">Hibernate with Panache</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spring.html">Spring Compatibility</a>
+    <a class="nav-link" href="kubernetes.html">Deploy to Kubernetes</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="kubernetes.html">Deploy to Kubernetes</a>
+    <a class="nav-link" href="dev-services.html">Dev Services</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="spring.html">Spring Compatibility</a>
   </li>
 </ul>
   </li>
@@ -158,7 +161,7 @@ Then we&#8217;re going to filter all the beers with an ABV greater than 15.0 and
 </div>
 </div>
 <div class="sect1">
-<h2 id="_add_the_resteasy_mutiny_extension"><a class="anchor" href="#_add_the_resteasy_mutiny_extension"></a>Add the RestEasy Mutiny extension</h2>
+<h2 id="_add_the_mutiny_extension"><a class="anchor" href="#_add_the_mutiny_extension"></a>Add the Mutiny extension</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Just open a new terminal window, and make sure you’re at the root of your <code>tutorial-app</code> project, then run:</p>
@@ -178,14 +181,14 @@ Then we&#8217;re going to filter all the beers with an ABV greater than 15.0 and
 <div class="tab-pane" aria-labelledby="tabset1_maven">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn quarkus:add-extension -Dextension=quarkus-resteasy-mutiny</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn quarkus:add-extension -Dextension=quarkus-mutiny</code></pre>
 </div>
 </div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset1_quarkus-cli">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">quarkus extension add quarkus-resteasy-mutiny</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">quarkus extension add quarkus-mutiny</code></pre>
 </div>
 </div>
 </div>
@@ -203,7 +206,7 @@ Then we&#8217;re going to filter all the beers with an ABV greater than 15.0 and
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package com.redhat.developers;
 
-import javax.json.bind.annotation.JsonbCreator;
+import jakarta.json.bind.annotation.JsonbCreator;
 import java.math.BigDecimal;
 
 public class Beer {
@@ -257,11 +260,11 @@ public class Beer {
 
 import java.util.List;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
@@ -305,10 +308,10 @@ public interface BeerService {
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 

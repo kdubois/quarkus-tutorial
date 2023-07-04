@@ -74,10 +74,13 @@
     <a class="nav-link" href="panache.html">Hibernate with Panache</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spring.html">Spring Compatibility</a>
+    <a class="nav-link" href="kubernetes.html">Deploy to Kubernetes</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="kubernetes.html">Deploy to Kubernetes</a>
+    <a class="nav-link" href="dev-services.html">Dev Services</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="spring.html">Spring Compatibility</a>
   </li>
 </ul>
   </li>
@@ -148,7 +151,7 @@
 <h2 id="_ide"><a class="anchor" href="#_ide"></a>IDE</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can use any Java IDE for this tutorial but if you didn&#8217;t try it before, we recommend <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener">VS Code</a> with the <a href="https://marketplace.visualstudio.com/items?itemName=redhat.java" target="_blank" rel="noopener">Language Support for Java&#8482; by Red Hat</a> and the <a href="https://marketplace.visualstudio.com/items?itemName=redhat.vscode-quarkus" target="_blank" rel="noopener">Quarkus</a> extensions.</p>
+<p>You can use any Java IDE for this tutorial but if you haven&#8217;t tried it before, we recommend <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener">VS Code</a> with the <a href="https://marketplace.visualstudio.com/items?itemName=redhat.java" target="_blank" rel="noopener">Language Support for Java&#8482; by Red Hat</a> and the <a href="https://marketplace.visualstudio.com/items?itemName=redhat.vscode-quarkus" target="_blank" rel="noopener">Quarkus</a> extensions.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -171,18 +174,30 @@ which allows you to run this entire tutorial within a container that will have a
 <h2 id="_cli_tools"><a class="anchor" href="#_cli_tools"></a>CLI Tools</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The following CLI tools are required for running the exercises in this tutorial.</p>
+<p>The following CLI tools are recommended for running the exercises in this tutorial.</p>
 </div>
-<div class="admonitionblock warning">
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
 <div class="paragraph">
 <p>GraalVM is only required if you intend to build a native image for your local operating system. If you want to create a container using a native image, you can use the Quarkus feature for this and don&#8217;t need to install GraalVM locally.</p>
 </div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+* You can also use Docker instead of Podman. The advantage of Podman is that it is 100% Free Open Source and does not need to run with elevated privileges. Just use 'podman' instead of 'docker' throughout the tutorial&#8217;s instructions, or easier yet, alias docker=podman to automatically use podman under the hood for docker commands.
 </td>
 </tr>
 </table>
@@ -220,15 +235,15 @@ which allows you to run this entire tutorial within a container that will have a
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Docker</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener">Docker Desktop for Mac</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dnf install docker</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener">Docker Desktop for Windows</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Podman Desktop* </strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://podman-desktop.io/downloads" target="_blank" rel="noopener">Podman Desktop for Mac</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://podman-desktop.io/downloads" target="_blank" rel="noopener">Podman Desktop for Linux</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://podman-desktop.io/downloads" target="_blank" rel="noopener">Podman Desktop for Windows</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Java 11</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>brew tap AdoptOpenJDK/openjdk &amp;&amp; brew cask install adoptopenjdk11</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dnf install java-11-openjdk.x86_64</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Java 17</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>brew tap AdoptOpenJDK/openjdk &amp;&amp; brew cask install adoptopenjdk17</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dnf install java-17-openjdk.x86_64</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://adoptopenjdk.net">Windows</a> (Make sure you set the <code>JAVA_HOME</code> environment variable and add <code>%JAVA_HOME%\bin</code> to your <code>PATH</code>)</p></td>
 </tr>
 <tr>
@@ -239,33 +254,79 @@ which allows you to run this entire tutorial within a container that will have a
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Graal VM</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-22.1.0/graalvm-ce-java11-darwin-amd64-22.1.0.tar.gz">GraalVM Community Edition 22.1.0</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-22.1.0/graalvm-ce-java11-linux-amd64-22.1.0.tar.gz">GraalVM Community Edition 22.1.0</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-22.1.0/graalvm-ce-java11-windows-amd64-22.1.0.zip">GraalVM Community Edition 22.1.0</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-22.3.0/graalvm-ce-java17-darwin-amd64-22.3.0.tar.gz">GraalVM Community Edition 22.3.0</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-22.3.0/graalvm-ce-java17-linux-amd64-22.3.0.tar.gz">GraalVM Community Edition 22.3.0</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-22.3.0/graalvm-ce-java17-windows-amd64-22.3.0.zip">GraalVM Community Edition 22.3.0</a></p></td>
 </tr>
 </tbody>
 </table>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can also install Java and Maven using <a href="https://sdkman.io">SDKMAN!</a>. This allows easy version/distribution switching (and you can install the Quarkus CLI with it as well)</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">  curl -s "https://get.sdkman.io" | bash
+  source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+  sdk install java
+  sdk install maven
+  sdk install quarkus</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset1_container-image">
 <div class="paragraph">
-<p>If you have <a href="https://www.docker.com/products/docker-desktop">Docker for Mac or Windows or Linux</a>  then you can pull the Linux container image
+<p>If you have <a href="https://podman-desktop.io/downloads" target="_blank" rel="noopener">Podman Desktop for Linux</a>  then you can pull the Linux container image
 <a href="https://quay.io/repository/rhdevelopers/tutorial-tools?tab=tags">tutorial tools</a> which has all the tools listed below installed and pre-configured.</p>
 </div>
 <div id="docker-pull-tutorials-cli" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull quay.io/rhdevelopers/tutorial-tools:0.0.4
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull quay.io/rhdevelopers/tutorial-tools
 mkdir quarkus-tutorial
 cd quarkus-tutorial
 mkdir work
 docker run -ti -p 8080:8080 -v `pwd`/work:/work \
   -v `mvn help:evaluate -Dexpression=settings.localRepository | grep \
-  -v '\[INFO\]'`:/opt/developer/.m2/repository \
-  --rm quay.io/rhdevelopers/tutorial-tools:0.0.4 bash
+  -v '\[INFO\]' | grep -v '\[WARNING\]'`:/opt/developer/.m2/repository \
+  --rm quay.io/rhdevelopers/tutorial-tools:0.0.7 bash
 
 # -p will map Quarkus running in the container to your host port
 # -v `pwd`... will map the host work subdirectory to the container /work directory, this is where you will create your application
 # -v `mvn ...` will map your ~/.m2/repository of your host to the container repository to save downloading again between image runs</code></pre>
 </div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Installing <a href="https://sdkman.io">SDKMAN!</a> in the container will allow you to install the Quarkus CLI very easily:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">  curl -s "https://get.sdkman.io" | bash
+  source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+  sdk install quarkus</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

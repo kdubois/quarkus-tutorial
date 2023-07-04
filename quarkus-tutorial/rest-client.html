@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>REST Client :: Quarkus Tutorial</title>
     <link rel="canonical" href="https://redhat-developer-demos.github.io/quarkus-tutorial/quarkus-tutorial/rest-client.html">
-    <link rel="prev" href="kubernetes.html">
+    <link rel="prev" href="spring.html">
     <link rel="next" href="fault-tolerance.html">
     <meta name="generator" content="Antora 2.3.1">
     <link rel="stylesheet" href="../_/css/site.css">
@@ -74,10 +74,13 @@
     <a class="nav-link" href="panache.html">Hibernate with Panache</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spring.html">Spring Compatibility</a>
+    <a class="nav-link" href="kubernetes.html">Deploy to Kubernetes</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="kubernetes.html">Deploy to Kubernetes</a>
+    <a class="nav-link" href="dev-services.html">Dev Services</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="spring.html">Spring Compatibility</a>
   </li>
 </ul>
   </li>
@@ -150,7 +153,7 @@
 <p>An atypical scenario in a Microservices architecture is the remote invocation of remote REST HTTP endpoints. Quarkus provides a typed REST client that follows the  <a href="https://github.com/eclipse/microprofile-rest-client" target="_blank" rel="noopener">MicroProfile REST Client</a> specification.</p>
 </div>
 <div class="paragraph">
-<p>Let&#8217;s create a REST client that accesses <a href="https://www.fruityvice.com" class="bare" target="_blank" rel="noopener">https://www.fruityvice.com</a> to get nutrition information about our fruits. The endpoint we&#8217;re interested in is this one:</p>
+<p>Let&#8217;s create a REST client that accesses <a href="https://fruityvice.com" class="bare" target="_blank" rel="noopener">https://fruityvice.com</a> to get nutrition information about our fruits. The endpoint we&#8217;re interested in is this one:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -237,7 +240,7 @@
 <h2 id="_create_fruityvice_pojo"><a class="anchor" href="#_create_fruityvice_pojo"></a>Create FruityVice POJO</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>We need to create a POJO object that is used to unmarshal a JSON message from <a href="http://www.fruityvice.com" class="bare" target="_blank" rel="noopener">http://www.fruityvice.com</a>.</p>
+<p>We need to create a POJO object that is used to unmarshal a JSON message from <a href="http://fruityvice.com" class="bare" target="_blank" rel="noopener">http://fruityvice.com</a>.</p>
 </div>
 <div class="paragraph">
 <p>Create a new <code>FruityVice</code> Java class in <code>src/main/java</code> in the <code>com.redhat.developers</code> package with the following contents:</p>
@@ -246,7 +249,7 @@
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package com.redhat.developers;
 
-import javax.json.bind.annotation.JsonbCreator;
+import jakarta.json.bind.annotation.JsonbCreator;
 
 public class FruityVice {
 
@@ -313,11 +316,11 @@ public class FruityVice {
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package com.redhat.developers;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
@@ -344,7 +347,7 @@ public interface FruityViceService {
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">com.redhat.developers.FruityViceService/mp-rest/url=https://www.fruityvice.com</code></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">com.redhat.developers.FruityViceService/mp-rest/url=https://fruityvice.com</code></pre>
 </div>
 </div>
 </div>
@@ -426,17 +429,17 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 @Path("/fruit")
 public class FruitResource {
@@ -444,6 +447,7 @@ public class FruitResource {
 
 
     @RestClient
+    @Inject
     FruityViceService fruityViceService;
 
     @Transactional
@@ -516,7 +520,7 @@ public class FruitResource {
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="kubernetes.html">Deploy to Kubernetes</a></span>
+  <span class="prev"><a href="spring.html">Spring Compatibility</a></span>
   <span class="next"><a href="fault-tolerance.html">Fault Tolerance</a></span>
 </nav>
 </article>
