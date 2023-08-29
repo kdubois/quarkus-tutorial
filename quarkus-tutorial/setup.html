@@ -166,7 +166,8 @@ which allows you to run this entire tutorial within a container that will have a
 </td>
 <td class="content">
 <div class="paragraph">
-<p>GraalVM is only required if you intend to build a native image for your local operating system. If you want to create a container using a native image, you can use the Quarkus feature for this and don&#8217;t need to install GraalVM locally.</p>
+<p>Installing GraalVM is only required if you intend to build a <a href="https://quarkus.io/guides/building-native-image">native binary</a> for your local operating system and don&#8217;t have a container runtime.
+Quarkus can simply build the native binary inside a container and this way you don&#8217;t need to install and configure GraalVM on your machine.</p>
 </div>
 </td>
 </tr>
@@ -184,23 +185,11 @@ which allows you to run this entire tutorial within a container that will have a
 </tr>
 </table>
 </div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-We highly recommend Windows users to use <a href="https://learn.microsoft.com/en-us/windows/wsl/install">WSL</a>.
-</td>
-</tr>
-</table>
-</div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset1_local-installation"></a>Local  Installation</p>
+<p><a id="tabset1_local-installation-read-the-tip-below-for-an-alternative-way-to-install-these-tools"></a>Local  Installation (read the tip below for an alternative way to install these tools)</p>
 </li>
 <li>
 <p><a id="tabset1_container-image"></a>Container Image</p>
@@ -208,7 +197,7 @@ We highly recommend Windows users to use <a href="https://learn.microsoft.com/en
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset1_local-installation">
+<div class="tab-pane" aria-labelledby="tabset1_local-installation-read-the-tip-below-for-an-alternative-way-to-install-these-tools">
 <div class="paragraph">
 <p>Please have them installed and configured before you get started with any of the tutorial chapters.</p>
 </div>
@@ -247,10 +236,10 @@ We highly recommend Windows users to use <a href="https://learn.microsoft.com/en
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://maven.apache.org/download.cgi">Windows</a> (Make sure you set the <code>MAVEN_HOME</code> environment variable and add <code>%MAVEN_HOME%\bin</code> to your <code>PATH</code>)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Graal VM</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-22.3.0/graalvm-ce-java17-darwin-amd64-22.3.0.tar.gz">GraalVM Community Edition 22.3.0</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-22.3.0/graalvm-ce-java17-linux-amd64-22.3.0.tar.gz">GraalVM Community Edition 22.3.0</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-22.3.0/graalvm-ce-java17-windows-amd64-22.3.0.zip">GraalVM Community Edition 22.3.0</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Graal VM [Optional *]</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.graalvm.org/latest/docs/getting-started/macos/">Download &amp; install GraalVM for MacOS</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.graalvm.org/latest/docs/getting-started/linux/">Download &amp; install GraalVM for Linux</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.graalvm.org/latest/docs/getting-started/windows/">Download &amp; install GraalVM for Windows</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -262,16 +251,19 @@ We highly recommend Windows users to use <a href="https://learn.microsoft.com/en
 </td>
 <td class="content">
 <div class="paragraph">
-<p>You can also install Java and Maven using <a href="https://sdkman.io">SDKMAN!</a>. This allows easy version/distribution switching (and you can install the Quarkus CLI with it as well)</p>
+<p>If you are using Linux, MacOS or WSL on Windows you can also install the required tools using <a href="https://sdkman.io">SDKMAN!</a>. This allows easy version/distribution switching (and you can install the Quarkus CLI with it as well).
+Alternatively on Windows you can also try <a href="https://chocolatey.org/">Chocolatey</a> which works similarly.</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">  curl -s "https://get.sdkman.io" | bash
   source "$HOME/.sdkman/bin/sdkman-init.sh"
-
+.
   sdk install java
   sdk install maven
-  sdk install quarkus</code></pre>
+  sdk install quarkus
+  sdk install java 17.0.8-graalce
+  sdk install jbang</code></pre>
 </div>
 </div>
 </td>
@@ -281,7 +273,7 @@ We highly recommend Windows users to use <a href="https://learn.microsoft.com/en
 </div>
 <div class="tab-pane" aria-labelledby="tabset1_container-image">
 <div class="paragraph">
-<p>You can run the tutorial from inside a container which has all the tools listed below installed and pre-configured.</p>
+<p>You can run the tutorial from inside a container which has all the tools listed above installed and pre-configured.</p>
 </div>
 <div id="docker-pull-tutorials-cli" class="listingblock">
 <div class="content">
@@ -290,13 +282,13 @@ mkdir quarkus-tutorial
 cd quarkus-tutorial
 mkdir work
 docker run -ti -p 8080:8080 -v `pwd`/work:/work \
-  -v `mvn help:evaluate -Dexpression=settings.localRepository | grep \
+  -v `./mvnw help:evaluate -Dexpression=settings.localRepository | grep \
   -v '\[INFO\]' | grep -v '\[WARNING\]'`:/opt/developer/.m2/repository \
   --rm quay.io/rhdevelopers/tutorial-tools:0.0.7 bash
 
 # -p will map Quarkus running in the container to your host port
 # -v `pwd`... will map the host work subdirectory to the container /work directory, this is where you will create your application
-# -v `mvn ...` will map your ~/.m2/repository of your host to the container repository to save downloading again between image runs</code></pre>
+# -v `./mvnw ...` will map your ~/.m2/repository of your host to the container repository to save downloading again between image runs</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
